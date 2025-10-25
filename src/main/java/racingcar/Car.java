@@ -1,8 +1,14 @@
 package racingcar;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 public class Car {
     // 이름 길이 제한을 상수 정의
     private static final int MAX_NAME_LENGTH = 5;
+    // 전진 로직에 필요한 상수 추가 (전진 기준 값, 난수 최소값, 난수 최대값)
+    private static final int MOVE_THRESHOLD = 4;
+    private static final int MIN_NUMBER = 0;
+    private static final int MAX_NUMBER = 9;
     // 이름,위치,속성 정의
     // 이름은 한 번 정해지면 바뀌지 않음으로 final로 선언
     private final String name;
@@ -28,7 +34,19 @@ public class Car {
             throw new IllegalArgumentException("[ERROR] 길이5초과");
         }
     }
-
+    // 전진 로직 구현
+    public void tryMove() {
+        int randomNumber = Randoms.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
+        // 전진 여부 판단 로직(isMoveable)을 통해 전진
+        if (isMoveable(randomNumber)){
+            position++; // 위치를 1 증가시킴
+        }
+    }
+    //전진 판단 로직 분리 -> 테스트 용이성을 위해
+    public boolean isMoveable(int randomNumber) {
+        return randomNumber >= MOVE_THRESHOLD;
+    }
+    // Getter 메서드
     public String getName() {
         return name;
     }
