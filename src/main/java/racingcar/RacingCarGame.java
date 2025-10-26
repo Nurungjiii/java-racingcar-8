@@ -13,23 +13,18 @@ public class RacingCarGame {
     // 경주 게임을 시작하고 실행합니다.
 
     public void start() {
-        try {
-            // 1. 자동차 이름 입력 및 Cars 객체 생성 (유효성 검사 포함)
-            Cars cars = initializeCars();
+        // 1. 자동차 이름 입력 및 Cars 객체 생성 (예외 발생 시 던져짐)
+        String carNamesInput = inputView.inputCarNames();
+        Cars cars = new Cars(carNamesInput);
 
-            // 2. 시도 횟수 입력 및 유효성 검사
-            int tryCount = getTryCount();
+        // 2. 시도 횟수 입력 (예외 발생 시 던져짐)
+        int tryCount = inputView.inputTryCount();
 
-            // 3. 경주 실행 및 결과 출력
-            runRace(cars, tryCount);
+        // 3. 경주 실행 및 결과 출력
+        runRace(cars, tryCount);
 
-            // 4. 최종 우승자 출력
-            outputView.printWinners(cars.getWinners());
-
-        } catch (IllegalArgumentException e) {
-            // 입력 과정에서 발생한 예외를 출력하고 게임을 종료합니다.
-            outputView.printError(e.getMessage());
-        }
+        // 4. 최종 우승자 출력
+        outputView.printWinners(cars.getWinners());
     }
 
     // 자동차 이름 입력 및 Cars 객체 초기화 로직 (유효성 검사 시 재시도)
