@@ -18,9 +18,9 @@ public class Car {
         // 생성자에서 이름 할당 전에 유효성 검사 수행
         validateName(name);
         // 전달 받은 이름으로 필드 초기화
-        this.name=name;
+        this.name = name;
         // 모든 자동차의 시작 위치는 0
-        this.position=0;
+        this.position = 0;
     }
 
     // 이름 유효성 검사 메서드 구현
@@ -34,18 +34,21 @@ public class Car {
             throw new IllegalArgumentException("[ERROR] 길이5초과");
         }
     }
+
     // 전진 로직 구현
     public void tryMove() {
         int randomNumber = Randoms.pickNumberInRange(MIN_NUMBER, MAX_NUMBER);
         // 전진 여부 판단 로직(isMoveable)을 통해 전진
-        if (isMoveable(randomNumber)){
+        if (isMoveable(randomNumber)) {
             position++; // 위치를 1 증가시킴
         }
     }
+
     //전진 판단 로직 분리 -> 테스트 용이성을 위해
     public boolean isMoveable(int randomNumber) {
         return randomNumber >= MOVE_THRESHOLD;
     }
+
     // Getter 메서드
     public String getName() {
         return name;
