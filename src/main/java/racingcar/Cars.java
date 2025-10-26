@@ -42,4 +42,29 @@ public class Cars {
                 .map(Car::new)     // 각 이름으로 Car 객체 생성 (이때 Car 생성자에서 이름 유효성 검사 수행)
                 .toList();         // Java 16+
     }
+    // 경주 실행 및 우승자 판별 로직 추가
+    // 모든 자동차를 한 번 씩 이동 시킴니다
+    public void moveCars() {
+        for (Car car : cars) {
+            car.tryMove();
+        }
+    }
+    // 현재 경주에서 가장 많이 전진한 위치(최대값)을 반환합니다
+    private int getMaxPosition() {
+        return cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
+    }
+    // 우승자 목록을 반환함 (최대위치와 동일한 위치에 있는 자동차)
+    // @return 우승한 자동차 이름 목록
+    public List<String> getWinners() {
+        int maxPosition = getMaxPosition();
+
+        return cars.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .map(Car::getName)
+                .toList();
+    }
+
 }
