@@ -5,8 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+// AssertJ 라이브러리를 사용하여 테스트의 가독성을 높입니다.
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+// Car 클래스의 기능(생성, 유효성 검사, 전진 로직)을 테스트합니다.
 class CarTest {
+    // 생성 및 유효성 검사 테스트
     @DisplayName("자동차 생성 성공 - 이름 할당 및 위치 0 초기화")
     @Test
     void createCar_success() {
@@ -19,16 +24,12 @@ class CarTest {
         assertThat(car.getPosition()).isEqualTo(0);
     }
 
-    private void assertThat() {
-    }
-
     @DisplayName("자동차 이름 5자 초과 시 예외 발생")
     @Test
     void createCar_fail_nameLength() {
         String carName = "longname"; // 6자
 
         // 예외 발생을 검증합니다.
-        assertThatThrownBy()
         assertThatThrownBy(() -> new Car(carName))
                 .isInstanceOf(IllegalArgumentException.class) // 예외 타입 확인
                 .hasMessageContaining("[ERROR] 자동차 이름은 5자 이하만 가능합니다."); // 예외 메시지 확인
@@ -69,4 +70,8 @@ class CarTest {
         Car car = new Car("test");
         assertThat(car.isMoveable(randomNumber)).isFalse();
     }
+
+    // tryMove()는 Randoms API에 의존하므로, 이 테스트는
+    // Randoms API를 Mocking(모조 객체로 대체)해야 안정적인 테스트가 가능합니다.
+    // 여기서는 isMoveable()의 단위 테스트로 tryMove()의 핵심 로직을 검증합니다.
 }

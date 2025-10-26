@@ -27,11 +27,11 @@ public class Car {
     private void validateName(String name) {
         // 이름이 null이거나, 앞뒤 공백을 제거했을 때 비어있는지 검사
         if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 공백");
+            throw new IllegalArgumentException("[ERROR] 자동차 이름은 공백이 될 수 없습니다.");
         }
         // 이름의 길이가 5자를 초과하는지 검사
         if (name.length() > MAX_NAME_LENGTH) {
-            throw new IllegalArgumentException("[ERROR] 길이5초과");
+            throw new IllegalArgumentException("[ERROR] 자동차 이름은 5자 이하만 가능합니다.");
         }
     }
 
